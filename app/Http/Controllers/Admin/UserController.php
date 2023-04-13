@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
@@ -25,6 +24,7 @@ class UserController extends Controller
     {
         $params = $this->getFormatParams($request);
         $params['password'] = bcrypt($params['password']);
+        $params['register_ip'] = $request->getClientIp();
         User::create($params);
         return apiResponse();
     }
@@ -42,7 +42,8 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        //
+        $user->fill($request->validated())->save();
+        return apiResponse();
     }
 
     /**
@@ -50,7 +51,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return apiResponse();
     }
 
     private function getFormatParams($request): array

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Log;
+
 class UserRequest extends BaseRequest
 {
 
@@ -13,10 +15,18 @@ class UserRequest extends BaseRequest
     {
         $rules = [
             'phone' => 'bail|required|regex:/^1[345789][0-9]{9}$/'.'|unique:users',
-            'password' => 'bail|required|min:6|max:32'
+            'password' => 'bail|required|min:6|max:32',
+            'nickname' => 'bail|filled|min:6|max:32'
         ];
-        if ($this->route()->getActionMethod() === 'login'){
-            $rules['phone'] = 'bail|required|regex:/^1[345789][0-9]{9}$/';
+//        if ($this->route()->getActionMethod() === 'login'){
+//            $rules['phone'] = 'bail|required|regex:/^1[345789][0-9]{9}$/';
+//        }
+        if ($this->isMethod('PUT')){
+            $rules = [
+                'phone' => 'bail|filled|regex:/^1[345789][0-9]{9}$/',
+                'password' => 'bail|filled|min:6|max:32',
+                'nickname' => 'bail|filled|min:3|max:32'
+            ];
         }
         return $rules;
     }
