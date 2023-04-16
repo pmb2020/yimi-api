@@ -1,6 +1,9 @@
 <?php
 
-function apiResponse($code = 0, $msg = 'success', $data = []){
+use Illuminate\Http\JsonResponse;
+
+function apiResponse($code = 0, $msg = 'success', $data = []): JsonResponse
+{
     return response()->json([
         'code' => $code,
         'msg' => $msg,
@@ -8,7 +11,8 @@ function apiResponse($code = 0, $msg = 'success', $data = []){
     ]);
 }
 
-function apiResponseError($arr,$data = []){
+function apiResponseError($arr,$data = []): JsonResponse
+{
     return response()->json([
         'code' => $arr[0],
         'msg' => $arr[1],

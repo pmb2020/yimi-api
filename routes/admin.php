@@ -11,6 +11,8 @@ Route::middleware('auth:admin')->group(function (){
 
     Route::get('me',[App\Http\Controllers\Admin\AuthController::class,'me']);
 
+    Route::post('file/upload',['App\Http\Controllers\Admin\FileController','upload']);
+
     Route::apiResources([
         'user' => UserController::class,
         'goods' => GoodsController::class,
