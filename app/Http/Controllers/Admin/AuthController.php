@@ -19,12 +19,13 @@ class AuthController extends Controller
     }
 
     public function me(){
-        return auth('admin')->user();
+        $userInfo = auth('admin')->user();
+        return apiResponse(data: $userInfo);
     }
 
     public function logout(){
         auth()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        return apiResponse();
     }
 
     public function refresh(){
