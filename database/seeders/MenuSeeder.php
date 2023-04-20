@@ -26,21 +26,21 @@ class MenuSeeder extends Seeder
                 'path' => '/user',
                 'meta' => json_encode([
                     'title' => '用户管理',
-                    'icon' => 'HomeFilled'
+                    'icon' => 'UserFilled'
                 ])
             ],
             [
                 'path' => '/account',
                 'meta' => json_encode([
                     'title' => '账户管理',
-                    'icon' => 'HomeFilled'
+                    'icon' => 'WalletFilled'
                 ])
             ],
             [
                 'path' => '/setting',
                 'meta' => json_encode([
                     'title' => '系统设置',
-                    'icon' => 'HomeFilled'
+                    'icon' => 'Setting'
                 ])
             ],
 
@@ -64,7 +64,7 @@ class MenuSeeder extends Seeder
             [
                 'p_id' => 3,
                 'name' => 'account-index',
-                'path' => 'role',
+                'path' => 'index',
                 'component' => 'account/index',
                 'meta' => json_encode([
                     'title' => '账号列表',
