@@ -16,7 +16,7 @@ class MenuSeeder extends Seeder
         DB::table('menus')->truncate();
         $data1 = [
             [
-                'path' => '/home1',
+                'path' => '/',
                 'meta' => json_encode([
                     'title' => '首页',
                     'icon' => 'HomeFilled'
@@ -49,8 +49,8 @@ class MenuSeeder extends Seeder
         $data2 = [
             [
                 'p_id' => 1,
-                'name' => 'home1',
-                'path' => '/home1',
+                'name' => 'home',
+                'path' => 'home',
                 'component' => 'home/index',
                 'meta' => null
             ],
