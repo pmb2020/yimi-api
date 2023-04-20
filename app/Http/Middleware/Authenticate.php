@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Common\ErrorCode;
+use App\Exceptions\ApiException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 
@@ -12,6 +14,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('login');
+        if (! $request->expectsJson()){
+            throw new ApiException(ErrorCode::UNAUTHORIZED);
+        }
+        return null;
+//        return $request->expectsJson() ? null : route('login');
     }
 }
