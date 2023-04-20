@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        if (! $request->expectsJson()){
+        if ($request->expectsJson()){
             throw new ApiException(ErrorCode::UNAUTHORIZED);
         }
         return null;

@@ -4,7 +4,7 @@ namespace App\Common;
 
 class ErrorCode
 {
-    const UNAUTHORIZED = [40001,'Unauthorized'];
+    const UNAUTHORIZED = [40001,'请先登录'];
 
     const LOGIN_VERIFY_FAIL = [40002,'账号或密码错误'];
 
