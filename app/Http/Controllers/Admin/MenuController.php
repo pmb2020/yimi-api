@@ -14,7 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $res = Menu::with('children')->where('p_id',0)->paginate(20);
+        $res = Menu::with('children')
+            ->where('p_id',0)
+            ->paginate(20);
         return apiResponse(data: $res);
     }
 
