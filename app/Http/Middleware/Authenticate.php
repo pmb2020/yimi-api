@@ -6,6 +6,7 @@ use App\Common\ErrorCode;
 use App\Exceptions\ApiException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Authenticate extends Middleware
 {
@@ -14,7 +15,8 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        if ($request->expectsJson()){
+        Log::info('ssssssssss');
+        if (! $request->expectsJson()){
             throw new ApiException(ErrorCode::UNAUTHORIZED);
         }
         return null;
