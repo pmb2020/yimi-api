@@ -10,7 +10,8 @@ Route::any('/login',['App\Http\Controllers\Admin\AuthController','login']);
 
 Route::middleware('auth:admin')->group(function (){
 
-    Route::get('me',[App\Http\Controllers\Admin\AuthController::class,'me']);
+    Route::get('me',['App\Http\Controllers\Admin\AuthController','me']);
+    Route::get('logout',['App\Http\Controllers\Admin\AuthController','logout']);
 
     Route::post('file/upload',['App\Http\Controllers\Admin\FileController','upload']);
 
