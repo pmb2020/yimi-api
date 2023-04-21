@@ -32,6 +32,7 @@ class Banner extends BaseModel
             return $query->where('title','like',"%{$title}%");
         })->when(is_numeric($params['status'] ?? ''),function ($query) use ($params) {
             return $query->where('status',$params['status']);
-        })->paginate(Request('limit',20));
+        })->latest()
+            ->paginate(Request('limit',20));
     }
 }
