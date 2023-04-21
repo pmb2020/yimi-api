@@ -11,6 +11,9 @@ class FileController extends Controller
     {
         $storagePath = 'images/'.date('Y-m').'/'.date('d');
         $filePath= $request->file('file')->store($storagePath);
-        return apiResponse(data: ['path'=>$filePath]);
+        return apiResponse(data: [
+            'path'=>$filePath,
+            'fullPath' => asset($filePath)
+        ]);
     }
 }

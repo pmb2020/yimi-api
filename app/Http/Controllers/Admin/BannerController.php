@@ -12,10 +12,10 @@ class BannerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $res = Banner::query()->where(['status'=>0])
-            ->simplePaginate(20);
+        $params = $request->only('title','status');
+        $res = Banner::getDataByQuery($params);
         return apiResponse(data: $res);
     }
 

@@ -23,6 +23,13 @@ class MenuSeeder extends Seeder
                 ])
             ],
             [
+                'path' => '/banner',
+                'meta' => json_encode([
+                    'title' => '轮播管理',
+                    'icon' => 'Picture'
+                ])
+            ],
+            [
                 'path' => '/user',
                 'meta' => json_encode([
                     'title' => '用户管理',
@@ -56,13 +63,20 @@ class MenuSeeder extends Seeder
             ],
             [
                 'p_id' => 2,
+                'name' => 'banner-index',
+                'path' => 'index',
+                'component' => 'banner/index',
+                'meta' => null
+            ],
+            [
+                'p_id' => 3,
                 'name' => 'user-index',
                 'path' => 'index',
                 'component' => 'user/index',
                 'meta' => null
             ],
             [
-                'p_id' => 3,
+                'p_id' => 4,
                 'name' => 'account-index',
                 'path' => 'index',
                 'component' => 'account/index',
@@ -72,7 +86,7 @@ class MenuSeeder extends Seeder
                 ])
             ],
             [
-                'p_id' => 3,
+                'p_id' => 4,
                 'name' => 'account-role',
                 'path' => 'role',
                 'component' => 'role/index',
@@ -82,7 +96,7 @@ class MenuSeeder extends Seeder
                 ])
             ],
             [
-                'p_id' => 3,
+                'p_id' => 4,
                 'name' => 'account-menu',
                 'path' => 'menu',
                 'component' => 'menu/index',
@@ -92,7 +106,7 @@ class MenuSeeder extends Seeder
                 ])
             ],
             [
-                'p_id' => 4,
+                'p_id' => 5,
                 'name' => 'setting',
                 'path' => 'index',
                 'component' => 'setting/index',
