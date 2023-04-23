@@ -12,7 +12,7 @@ class Admin extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    protected $fillable = ['username','password','nickname'];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',
@@ -40,5 +40,25 @@ class Admin extends Authenticatable implements JWTSubject
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * 根据查询条件获取数据
+     * @param $params
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getDataByQuery($params = []){
+        return self::query()->when($params['username'] ?? '',function ($query,$username){
+            return $query->where('username','like',"%{$username}%");
+        })->when($params['nickname'] ?? '' ,function ($query,$nickname){
+            return $query->where('nickname','like',"%{$nickname}%");
+        })->when($params['tel'] ?? '' ,function ($query,$tel){
+            return $query->where('tel','like',"%{$tel}%");
+        })->when($params['email'] ?? '' ,function ($query,$email){
+            return $query->where('email','like',"%{$email}%");
+        })->when(is_numeric($params['status'] ?? ''),function ($query) use ($params) {
+            return $query->where('status',$params['status']);
+        })->latest()
+            ->paginate(Request('limit',20));
     }
 }

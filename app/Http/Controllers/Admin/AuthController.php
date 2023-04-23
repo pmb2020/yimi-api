@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function login(){
         $credentials = request(['username', 'password']);
         if(! $token = auth('admin')->attempt($credentials)){
-            return apiResponseError(ErrorCode::UNAUTHORIZED);
+            return apiResponseError(ErrorCode::LOGIN_VERIFY_FAIL);
         }
 
         return apiResponse(data: $this->respondWithToken($token));
