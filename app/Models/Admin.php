@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Admin extends Authenticatable implements JWTSubject
 {
@@ -37,6 +38,15 @@ class Admin extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * 用户所拥有的角色
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class,'model_has_roles','model_id','role_id');
+    }
+
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
@@ -45,20 +55,21 @@ class Admin extends Authenticatable implements JWTSubject
     /**
      * 根据查询条件获取数据
      * @param $params
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function getDataByQuery($params = []){
-        return self::query()->when($params['username'] ?? '',function ($query,$username){
-            return $query->where('username','like',"%{$username}%");
-        })->when($params['nickname'] ?? '' ,function ($query,$nickname){
-            return $query->where('nickname','like',"%{$nickname}%");
-        })->when($params['tel'] ?? '' ,function ($query,$tel){
-            return $query->where('tel','like',"%{$tel}%");
-        })->when($params['email'] ?? '' ,function ($query,$email){
-            return $query->where('email','like',"%{$email}%");
-        })->when(is_numeric($params['status'] ?? ''),function ($query) use ($params) {
-            return $query->where('status',$params['status']);
-        })->latest()
-            ->paginate(Request('limit',20));
+    public static function getDataByQuery($params = []): array
+    {
+        return self::query()->leftJoin('model_has_roles','id','=','model_id')
+            ->when($params['username'] ?? '',function ($query,$username){
+                return $query->where('username','like',"%{$username}%");
+            })->when($params['nickname'] ?? '' ,function ($query,$nickname){
+                return $query->where('nickname','like',"%{$nickname}%");
+            })->when($params['tel'] ?? '' ,function ($query,$tel){
+                return $query->where('tel','like',"%{$tel}%");
+            })->when($params['email'] ?? '' ,function ($query,$email){
+                return $query->where('email','like',"%{$email}%");
+            })->when(is_numeric($params['status'] ?? ''),function ($query) use ($params) {
+                return $query->where('status',$params['status']);
+            })->oldest()
+            ->paginate(Request('limit',20))->toArray();
     }
 }

@@ -21,7 +21,8 @@ Route::middleware('auth:admin')->group(function (){
         'users' => UserController::class,
         'goods' => GoodsController::class,
         'banners' => BannerController::class,
-        'menus' => MenuController::class
+        'menus' => MenuController::class,
+        'roles' => \App\Http\Controllers\Admin\RoleController::class
     ]);
 
 //    Route::apiResource('test',UserController::class)->except('show');

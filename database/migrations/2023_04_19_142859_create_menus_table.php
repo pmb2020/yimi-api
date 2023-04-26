@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name',30)->nullable()->comment('路由名称');
             $table->tinyInteger('status')->default(0);
             $table->integer('p_id')->default(0)->comment('父路由id');
             $table->integer('sort')->default(0)->comment('排序');
             $table->string('path',30)->comment('路径/开头');
+            $table->string('title')->nullable()->comment('菜单标题名称');
+            $table->string('icon')->nullable()->comment('ele图标');
             $table->string('component',30)->nullable()->comment('布局组件');
-            $table->json('meta')->nullable()->comment('title,icon');
             $table->string('description')->nullable()->comment('备注');
             $table->timestamps();
         });
