@@ -58,7 +58,9 @@ class Admin extends Authenticatable implements JWTSubject
      */
     public static function getDataByQuery($params = []): array
     {
-        return self::query()->leftJoin('model_has_roles','id','=','model_id')
+        return self::query()->select('admins.*','role_id','roles.name as role_name')
+            ->leftJoin('model_has_roles','admins.id','=','model_id')
+            ->leftJoin('roles','model_has_roles.role_id','=','roles.id')
             ->when($params['username'] ?? '',function ($query,$username){
                 return $query->where('username','like',"%{$username}%");
             })->when($params['nickname'] ?? '' ,function ($query,$nickname){
@@ -69,7 +71,7 @@ class Admin extends Authenticatable implements JWTSubject
                 return $query->where('email','like',"%{$email}%");
             })->when(is_numeric($params['status'] ?? ''),function ($query) use ($params) {
                 return $query->where('status',$params['status']);
-            })->oldest()
+            })
             ->paginate(Request('limit',20))->toArray();
     }
 }

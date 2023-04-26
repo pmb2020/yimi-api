@@ -21,7 +21,6 @@ class AuthController extends Controller
 
     public function me(){
         $user = auth('admin')->user();
-//        ->only('id','username','nickname','email','tel')
         $menus = Menu::getMenusByUser($user,true);
         $userInfo = $user->only('id','username','nickname','email','tel');
         $userInfo['menus'] = $menus;

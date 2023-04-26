@@ -45,7 +45,7 @@ class Menu extends BaseModel
         if($admin->username == 'admin'){
             $menuIds = Menu::query()->where('p_id','<>',0)->pluck('id')->toArray();
         }else{
-            $menuIds = DB::table('role_has_menus')->where('role_id',13)->pluck('menu_id')->toArray();
+            $menuIds = DB::table('role_has_menus')->where('role_id',$roles[0]->id)->pluck('menu_id')->toArray();
         }
         foreach ($menuAll as $k=>&$v){
             foreach ($v['children'] as $ck=>$c){
