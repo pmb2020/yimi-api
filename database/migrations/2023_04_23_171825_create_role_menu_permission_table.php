@@ -35,6 +35,7 @@ return new class extends Migration
         Schema::create('role_has_menus', function (Blueprint $table) {
             $table->bigInteger('role_id')->unsigned();
             $table->bigInteger('menu_id')->unsigned();
+            $table->unique(['role_id','menu_id']);
 
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onDelete('cascade')->onUpdate('NO ACTION');

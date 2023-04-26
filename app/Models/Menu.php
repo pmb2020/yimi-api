@@ -32,7 +32,7 @@ class Menu extends BaseModel
         DB::table('role_has_menus')->insert($insertData);
     }
 
-    public static function getMenusByUser($admin){
+    public static function getMenusByUser($admin,$is_route = false){
         $roles = $admin->roles;
         if(count($roles) < 1){
             return [];
@@ -58,7 +58,9 @@ class Menu extends BaseModel
             }
             if(count($v['children']) === 1 && empty($v['children']['title']) && empty($v['children']['icon'])){
                 $v['id'] = $v['children'][0]['id'];
-                $v['children'] = [];
+                if(!$is_route){
+                    $v['children'] = [];
+                }
             }
         }
         return array_values($menuAll);

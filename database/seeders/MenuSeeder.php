@@ -128,11 +128,11 @@ class MenuSeeder extends Seeder
             'role_id' => 1
         ]);
 
-        DB::table('model_has_roles')->insert([
-            'model_id' => 1,
-            'model' => 'Admin',
-            'role_id' => 2
-        ]);
+//        DB::table('model_has_roles')->insert([
+//            'model_id' => 1,
+//            'model' => 'Admin',
+//            'role_id' => 2
+//        ]);
 
         DB::table('role_has_menus')->insert([
             'role_id' => 2,

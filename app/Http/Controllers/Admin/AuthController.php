@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Common\ErrorCode;
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -19,7 +20,11 @@ class AuthController extends Controller
     }
 
     public function me(){
-        $userInfo = auth('admin')->user();
+        $user = auth('admin')->user();
+//        ->only('id','username','nickname','email','tel')
+        $menus = Menu::getMenusByUser($user,true);
+        $userInfo = $user->only('id','username','nickname','email','tel');
+        $userInfo['menus'] = $menus;
         return apiResponse(data: $userInfo);
     }
 
