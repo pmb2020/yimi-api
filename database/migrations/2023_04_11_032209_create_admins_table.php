@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username')->unique()->comment('用户名');
             $table->string('password')->comment('密码');
             $table->string('nickname')->nullable()->comment('昵称');
+            $table->string('avatar')->nullable();
             $table->string('email')->nullable();
             $table->string('tel')->nullable()->comment('手机号');
             $table->ipAddress('register_ip')->nullable();

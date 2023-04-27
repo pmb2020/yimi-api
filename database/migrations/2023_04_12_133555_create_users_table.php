@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nickname')->nullable();
             $table->string('phone')->unique();
             $table->string('password');
+            $table->string('avatar')->nullable();
             $table->string('email')->nullable();
             $table->string('openid')->nullable();
             $table->ipAddress('register_ip')->nullable();
